@@ -10,13 +10,48 @@ Enhance your Nx experience by installing [Nx Console](https://nx.dev/nx-console)
 provides an interactive UI to view your projects, run tasks, generate code, and more! Available for VSCode, IntelliJ and
 comes with a LSP for Vim users.
 
+## Setup the workspace
+
+First, install the dependencies:
+
+```
+npm install
+```
+
+Then, create a new `.env` file in "apps/frontend" and add the following content:
+
+```Properties
+VITE_BACKEND_URL="http://localhost:3000" # Replace the value with the URL of the backend
+```
+
+Do the same for the backend (optional):
+
+```Properties
+HOST="localhost"
+PORT="3000"
+```
+
+Create a new ``local.db`` file in the "apps/backend" directory as the SQLite database, and run migrations by executing the following command:
+
+```
+npx nx migration:run backend
+```
+
+You're now ready to start the application!
+
 ## Start the application
 
-Run `npx nx serve backend` to start the development server. Happy coding!
+Run `npx nx start backend` to start the development backend.
+Run `npx nx start frontend` to start the development frontend.
+Run `npx nx studio backend` to start the Drizzle Studio (friendly interface to interact with the database).
+
+Happy coding!
 
 ## Build for production
 
-Run `npx nx build backend` to build the application. The build artifacts are stored in the output directory (e.g. `dist/` or `build/`), ready to be deployed.
+Run `npx nx build backend` to build the backend. The build artifacts are stored in the output directory (e.g. `dist/` or `build/`), ready to be deployed.
+
+Run `npx nx build frontend` to build the frontend. The build artifacts are stored in the output directory (e.g. `dist/` or `build/`), ready to be deployed.
 
 ## Running tasks
 

@@ -37,7 +37,7 @@
         }
       }
     },
-    "serve": {
+    "start": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
@@ -50,6 +50,27 @@
         "production": {
           "buildTarget": "backend:build:production"
         }
+      }
+    },
+    "migration:run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "drizzle-kit push",
+        "cwd": "apps/backend"
+      }
+    },
+    "migration:generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "drizzle-kit generate",
+        "cwd": "apps/backend"
+      }
+    },
+    "studio": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "drizzle-kit studio",
+        "cwd": "apps/backend"
       }
     },
     "test": {
