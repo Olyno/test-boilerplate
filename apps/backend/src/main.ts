@@ -31,6 +31,8 @@ app.use('/action_types', actionTypeRoutes);
 app.use('/actions', actionRoutes);
 app.use('/events', eventRoutes);
 
-app.listen(port, host, () => {
+const server = app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
 });
+
+export { app, server };
