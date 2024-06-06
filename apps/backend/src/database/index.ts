@@ -1,10 +1,10 @@
 import { createClient } from '@libsql/client';
 import { asc, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/libsql';
-import { existsSync, writeFileSync } from 'node:fs';
 import { join } from 'path';
 import { env } from '../env';
 import { calculateCredits, takeUnique, takeUniqueOrThrow } from '../helpers';
+import { migrate } from './migrate';
 import { Action, action_types, actions } from './schema';
 
 const database_url = join(
@@ -28,9 +28,7 @@ export const database = drizzle(sqlite);
  * Setup the database with the required tables.
  */
 export async function setupDatabase() {
-  if (!existsSync(database_url)) {
-    writeFileSync(database_url, '');
-  }
+  await migrate();
   const types = await database.select().from(action_types);
   if (types.length === 0) {
     const default_actions = DEFAULT_ACTIONS.map((type) => {
