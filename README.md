@@ -31,13 +31,20 @@ HOST="localhost"
 PORT="3000"
 ```
 
-Create a new ``local.db`` file in the "apps/backend" directory as the SQLite database, and run migrations by executing the following command:
-
-```
-npx nx migration:run backend
-```
-
 You're now ready to start the application!
+
+## Environment variables
+
+```Properties
+NODE_ENV               # The environment the app is running in (Default: development, Choices: development, test, production)
+HOST                   # The host the app is running on (Default: localhost)
+PORT                   # The port the app is running on (Default: 3000)
+DATABASE_FILE          # The path to the SQLite database file
+MAX_CREDITS            # The maximum credits a user can have (Default: 100)
+CREDIT_RECALC_INTERVAL # The interval in milliseconds to recalculate credits (Default: 600000)
+EXECUTION_INTERVAL     # The interval in milliseconds to execute actions (Default: 15000)
+FRONTEND_URL           # The frontend URL to allow CORS (Default: http://localhost:4200)
+```
 
 ## Start the application
 
