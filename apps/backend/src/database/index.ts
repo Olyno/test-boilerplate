@@ -1,5 +1,5 @@
 import { createClient } from '@libsql/client';
-import { asc, eq, sql } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/libsql';
 import { existsSync, writeFileSync } from 'node:fs';
 import { join } from 'path';
@@ -112,7 +112,7 @@ export async function executeAction(action: Action): Promise<void> {
     await database
       .update(action_types)
       .set({
-        credits: sql`${actionType.credits} - 1`,
+        credits: actionType.credits - 1,
       })
       .where(eq(action_types.id, actionType.id))
       .execute();
