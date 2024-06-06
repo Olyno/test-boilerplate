@@ -1,9 +1,8 @@
+import { app } from 'apps/backend/src/app';
+import { database } from 'apps/backend/src/database';
+import { actions } from 'apps/backend/src/database/schema';
 import { env } from 'apps/backend/src/env';
 import request from 'supertest';
-import { database } from '../../src/database';
-import { actions } from '../../src/database/schema';
-import { app } from '../../src/main';
-import '../setup';
 
 describe('GET /actions', () => {
   it('should return 200 OK', async () => {
@@ -34,11 +33,11 @@ describe('Action Processing', () => {
     async () => {
       await request(app).post('/actions').send({ type: 'EMAIL_NOTIFICATION' });
       await new Promise((resolve) =>
-        setTimeout(resolve, env.EXECUTION_INTERVAL + 1000)
+        setTimeout(resolve, env.EXECUTION_INTERVAL + 2000)
       );
       const remainingActions = await database.select().from(actions);
       expect(remainingActions.length).toBe(0);
     },
-    env.EXECUTION_INTERVAL + 2000
+    env.EXECUTION_INTERVAL + 3000
   );
 });

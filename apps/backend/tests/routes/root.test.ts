@@ -1,6 +1,5 @@
+import { app } from 'apps/backend/src/app';
 import request from 'supertest';
-import { app } from '../../src/main';
-import '../setup';
 
 describe('GET /', () => {
   it('should return 200 OK', async () => {

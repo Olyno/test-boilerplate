@@ -1,26 +1,22 @@
-import { createClient } from '@libsql/client';
-import { drizzle } from 'drizzle-orm/libsql';
 import { migrate } from 'drizzle-orm/libsql/migrator';
 import { join } from 'path';
+import { database } from '.';
 
-const database_url = join(process.cwd(), 'apps', 'backend', 'local.db');
+const migrationsFolder = join(
+  process.cwd(),
+  'apps',
+  'backend',
+  'src',
+  'database',
+  'migrations'
+);
 
 async function main() {
-  const db = drizzle(
-    createClient({ url: `file:${database_url}`, authToken: '' })
-  );
-
   console.log('[ migration ] Running migrations');
 
-  await migrate(db, { migrationsFolder: 'drizzle' });
+  await migrate(database, { migrationsFolder: migrationsFolder });
 
   console.log('[ migration ] Migrated successfully');
-
-  process.exit(0);
 }
 
-main().catch((e) => {
-  console.error('Migration failed');
-  console.error(e);
-  process.exit(1);
-});
+export { main as migrate };

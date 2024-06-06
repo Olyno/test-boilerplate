@@ -8,5 +8,6 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/backend',
-  maxWorkers: 1,
+  globalSetup: '<rootDir>/tests/setup.ts',
+  globalTeardown: '<rootDir>/tests/teardown.ts',
 };

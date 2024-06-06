@@ -15,6 +15,9 @@ export const env = envsafe({
     desc: 'The port the app is running on',
     example: 3000,
   }),
+  DATABASE_FILE: str({
+    desc: 'The path to the SQLite database file',
+  }),
   MAX_CREDITS: num({
     devDefault: 100,
     desc: 'The maximum credits a user can have',

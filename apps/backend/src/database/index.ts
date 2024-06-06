@@ -1,14 +1,20 @@
 import { createClient } from '@libsql/client';
 import { asc, eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/libsql';
+import { existsSync, writeFileSync } from 'node:fs';
 import { join } from 'path';
+import { env } from '../env';
 import { calculateCredits, takeUnique, takeUniqueOrThrow } from '../helpers';
 import { Action, action_types, actions } from './schema';
 
-const database_url = join(process.cwd(), 'apps', 'backend', 'local.db');
-const sqlite = createClient({ url: `file:${database_url}`, authToken: '' });
+const database_url = join(
+  process.cwd(),
+  'apps',
+  'backend',
+  env.NODE_ENV === 'test' ? 'test.db' : env.DATABASE_FILE
+);
 
-export const database = drizzle(sqlite);
+const sqlite = createClient({ url: `file:${database_url}`, authToken: '' });
 
 const DEFAULT_ACTIONS: string[] = [
   'EMAIL_NOTIFICATION',
@@ -16,10 +22,15 @@ const DEFAULT_ACTIONS: string[] = [
   'REPORT_GENERATION',
 ];
 
+export const database = drizzle(sqlite);
+
 /**
  * Setup the database with the required tables.
  */
 export async function setupDatabase() {
+  if (!existsSync(database_url)) {
+    writeFileSync(database_url, '');
+  }
   const types = await database.select().from(action_types);
   if (types.length === 0) {
     const default_actions = DEFAULT_ACTIONS.map((type) => {
