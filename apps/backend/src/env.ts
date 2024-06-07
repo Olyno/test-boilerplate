@@ -16,6 +16,7 @@ export const env = envsafe({
     example: 3000,
   }),
   DATABASE_FILE: str({
+    devDefault: 'local.db',
     desc: 'The path to the SQLite database file',
   }),
   MAX_CREDITS: num({

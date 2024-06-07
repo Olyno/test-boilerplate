@@ -39,7 +39,7 @@ You're now ready to start the application!
 NODE_ENV               # The environment the app is running in (Default: development, Choices: development, test, production)
 HOST                   # The host the app is running on (Default: localhost)
 PORT                   # The port the app is running on (Default: 3000)
-DATABASE_FILE          # The path to the SQLite database file
+DATABASE_FILE          # The path to the SQLite database file (Default: local.db)
 MAX_CREDITS            # The maximum credits a user can have (Default: 100)
 CREDIT_RECALC_INTERVAL # The interval in milliseconds to recalculate credits (Default: 600000)
 EXECUTION_INTERVAL     # The interval in milliseconds to execute actions (Default: 15000)
