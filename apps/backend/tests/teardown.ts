@@ -1,12 +1,14 @@
-import { existsSync, unlinkSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const database_url = join(process.cwd(), 'apps', 'backend', 'test.db');
 
 export default async (globalConfig, projectConfig) => {
-  if (existsSync(database_url)) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  // TODO: Remove the test database if it exists on Windows.
+  // Currently, it throws "EBUSY: resource busy or locked"
+  if (process.platform !== 'win32' && existsSync(database_url)) {
     console.log('[ test ] Removing test database');
-    unlinkSync(database_url);
+    await unlink(database_url);
   }
 };
