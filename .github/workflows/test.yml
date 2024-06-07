@@ -18,5 +18,8 @@ jobs:
           node-version: 21
           cache: 'npm'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Test
         run: npx nx test backend
