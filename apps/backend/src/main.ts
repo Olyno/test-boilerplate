@@ -8,7 +8,7 @@ const port = env.PORT;
 
 setupDatabase();
 
-setInterval(processAction, 1000);
+setInterval(processAction, env.EXECUTION_INTERVAL);
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
