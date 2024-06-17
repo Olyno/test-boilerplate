@@ -10,6 +10,12 @@ Enhance your Nx experience by installing [Nx Console](https://nx.dev/nx-console)
 provides an interactive UI to view your projects, run tasks, generate code, and more! Available for VSCode, IntelliJ and
 comes with a LSP for Vim users.
 
+## Requirements
+
+- Npm 9+
+- Node.js 18+
+- NX 13.10.1+
+
 ## Setup the workspace
 
 First, install the dependencies:
