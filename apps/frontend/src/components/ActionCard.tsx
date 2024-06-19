@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import eventManager from '../eventManager';
 import { normalizeEnum } from '../helpers';
 import { addAction } from '../services/actions';
-import { Action } from '../types';
 
 const Card = styled.div`
   background-color: #fff;
@@ -47,9 +46,12 @@ export default function ActionCard(props: PropsWithRef<{ actionType: any }>) {
   };
 
   useEffect(() => {
-    const handleEvent = (eventType: string, action: Action) => {
-      if (eventType === 'actionExecuted' && action.type_id === actionType.id) {
+    const handleEvent = (eventType: string, data: any) => {
+      if (eventType === 'actionExecuted' && data.type_id === actionType.id) {
         setCredits((prevCredits) => prevCredits - 1);
+      } else if (eventType === 'actionTypesChanged') {
+        const type = data.find((data: any) => data.id === actionType.id);
+        setCredits(type.credits);
       }
     };
 
