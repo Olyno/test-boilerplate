@@ -1,3 +1,4 @@
+import { ActionType } from '@test-boilerplate/shared-types';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ActionCard from '../components/ActionCard';
@@ -12,7 +13,7 @@ const Container = styled.div`
 `;
 
 export default function HomePage() {
-  const [actionTypes, setActionTypes] = useState([]);
+  const [actionTypes, setActionTypes] = useState<ActionType[]>([]);
 
   useEffect(() => {
     fetchActionTypes();

@@ -1,18 +1,19 @@
+import { ActionType } from '@test-boilerplate/shared-types';
 import axios from 'axios';
 
-const cache = new Map<number, string>();
+const cache = new Map<number, ActionType>();
 
 export async function getActionTypes() {
   if (cache.size > 0) {
-    return Object.fromEntries(cache);
+    return Object.fromEntries(cache) as unknown as ActionType[];
   }
 
   try {
-    const response = await axios.get(
+    const response = await axios.get<ActionType[]>(
       `${import.meta.env.VITE_BACKEND_URL}/action_types`
     );
 
-    response.data.forEach((actionType: any) => {
+    response.data.forEach((actionType) => {
       cache.set(actionType.id, actionType);
     });
 
@@ -23,6 +24,6 @@ export async function getActionTypes() {
   }
 }
 
-export function getActionTypeById(id: number): any {
+export function getActionTypeById(id: number) {
   return cache.get(id);
 }

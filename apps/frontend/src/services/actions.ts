@@ -1,14 +1,15 @@
+import { Action } from '@test-boilerplate/shared-types';
 import axios from 'axios';
 
-const cache = new Map<string, any>();
+const cache = new Map<string, Action[]>();
 
 export async function getActions() {
   if (cache.has('actions')) {
-    return cache.get('actions');
+    return cache.get('actions') as Action[];
   }
 
   try {
-    const response = await axios.get(
+    const response = await axios.get<Action[]>(
       `${import.meta.env.VITE_BACKEND_URL}/actions`
     );
     cache.set('actions', response.data);

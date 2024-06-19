@@ -1,11 +1,11 @@
 import { createClient } from '@libsql/client';
+import { Action, action_types, actions } from '@test-boilerplate/shared-types';
 import { asc, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/libsql';
 import { join } from 'path';
 import { env } from '../env';
 import { calculateCredits, takeUnique, takeUniqueOrThrow } from '../helpers';
 import { migrate } from './migrate';
-import { Action, action_types, actions } from './schema';
 
 const database_url = join(
   process.cwd(),
