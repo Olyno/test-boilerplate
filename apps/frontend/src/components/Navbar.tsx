@@ -40,31 +40,30 @@ export default function Navbar() {
   const [actions, setActions] = useState<Action[]>([]);
   const [showActions, setShowActions] = useState(false);
 
+  const initializeActions = async () => {
+    try {
+      const result = await getActions();
+      setActions(result);
+      setEventCount(result.length);
+    } catch (error) {
+      console.error('Error initializing actions:', error);
+    }
+  };
+
+  const handleEvent = (eventType: string, action: Action) => {
+    if (eventType === 'actionAdded') {
+      setEventCount((prevCount) => prevCount + 1);
+      setActions((prevActions) => [...prevActions, action]);
+    } else if (eventType === 'actionExecuted') {
+      setEventCount((prevCount) => prevCount - 1);
+      setActions((prevActions) =>
+        prevActions.filter((a) => a.id !== action.id)
+      );
+    }
+  };
+
   useEffect(() => {
-    const initializeActions = async () => {
-      try {
-        const result = await getActions();
-        setActions(result);
-        setEventCount(result.length);
-      } catch (error) {
-        console.error('Error initializing actions:', error);
-      }
-    };
-
     initializeActions();
-
-    const handleEvent = (eventType: string, action: Action) => {
-      if (eventType === 'actionAdded') {
-        setEventCount((prevCount) => prevCount + 1);
-        setActions((prevActions) => [...prevActions, action]);
-      } else if (eventType === 'actionExecuted') {
-        setEventCount((prevCount) => prevCount - 1);
-        setActions((prevActions) =>
-          prevActions.filter((a) => a.id !== action.id)
-        );
-      }
-    };
-
     eventManager.subscribe(handleEvent);
 
     return () => {
