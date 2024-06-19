@@ -1,35 +1,9 @@
 import { PropsWithRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import eventManager from '../eventManager';
-import { normalizeEnum } from '../helpers';
-import { addAction } from '../services/actions';
-import { Action } from '../types';
-
-const Card = styled.div`
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-`;
-
-const Button = styled.button`
-  background-color: #6200ee;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  padding: 10px 20px;
-`;
-
-const Credit = styled.p`
-  font-size: 14px;
-  color: #666;
-`;
+import eventManager from '../../eventManager';
+import { normalizeEnum } from '../../helpers';
+import { addAction } from '../../services/actions';
+import { Action } from '../../types';
+import { Button, Card, Credit } from './styled';
 
 // TODO: Type actionType
 export default function ActionCard(props: PropsWithRef<{ actionType: any }>) {
