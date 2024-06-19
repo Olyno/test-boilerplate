@@ -1,4 +1,7 @@
-type EventListener = (eventType: string, action: any) => void;
+type EventListener = (
+  eventType: string,
+  action: Record<string, unknown>
+) => void;
 
 class EventManager {
   private eventSource: EventSource | null = null;
@@ -29,7 +32,7 @@ class EventManager {
     this.listeners = this.listeners.filter((l) => l !== listener);
   }
 
-  private notifyListeners(eventType: string, action: any) {
+  private notifyListeners(eventType: string, action: Record<string, unknown>) {
     this.listeners.forEach((listener) => listener(eventType, action));
   }
 }

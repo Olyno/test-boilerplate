@@ -1,8 +1,8 @@
+import { Action } from '@test-boilerplate/shared-types';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import eventManager from '../eventManager';
 import { getActions } from '../services/actions';
-import { Action } from '../types';
 import ActionList from './ActionList';
 
 const NavbarContainer = styled.div`
@@ -53,10 +53,13 @@ export default function Navbar() {
 
     initializeActions();
 
-    const handleEvent = (eventType: string, action: Action) => {
+    const handleEvent = (
+      eventType: string,
+      action: Record<string, unknown>
+    ) => {
       if (eventType === 'actionAdded') {
         setEventCount((prevCount) => prevCount + 1);
-        setActions((prevActions) => [...prevActions, action]);
+        setActions((prevActions) => [...prevActions, action as Action]);
       } else if (eventType === 'actionExecuted') {
         setEventCount((prevCount) => prevCount - 1);
         setActions((prevActions) =>

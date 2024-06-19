@@ -1,3 +1,4 @@
+import { Action } from '@test-boilerplate/shared-types';
 import styled from 'styled-components';
 import { normalizeEnum } from '../helpers';
 import { getActionTypeById } from '../services/actionTypes';
@@ -47,12 +48,13 @@ const ActionType = styled.span`
   color: #888;
 `;
 
-export default function ActionList({ actions }: { actions: any[] }) {
+export default function ActionList({ actions }: { actions: Action[] }) {
   return (
     <ActionListContainer>
       <ActionListTitle>Action Queue</ActionListTitle>
       {actions.map((action) => {
         const actionType = getActionTypeById(action.type_id);
+        if (!actionType) return null;
         const normalizedActionType = normalizeEnum(actionType.type);
         return (
           <ActionListItem key={action.id}>

@@ -1,9 +1,9 @@
+import { ActionType } from '@test-boilerplate/shared-types';
 import { PropsWithRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import eventManager from '../eventManager';
 import { normalizeEnum } from '../helpers';
 import { addAction } from '../services/actions';
-import { Action } from '../types';
 
 const Card = styled.div`
   background-color: #fff;
@@ -31,8 +31,9 @@ const Credit = styled.p`
   color: #666;
 `;
 
-// TODO: Type actionType
-export default function ActionCard(props: PropsWithRef<{ actionType: any }>) {
+export default function ActionCard(
+  props: PropsWithRef<{ actionType: ActionType }>
+) {
   const actionType = props.actionType;
   const [credits, setCredits] = useState<number>(actionType.credits);
 
@@ -47,7 +48,10 @@ export default function ActionCard(props: PropsWithRef<{ actionType: any }>) {
   };
 
   useEffect(() => {
-    const handleEvent = (eventType: string, action: Action) => {
+    const handleEvent = (
+      eventType: string,
+      action: Record<string, unknown>
+    ) => {
       if (eventType === 'actionExecuted' && action.type_id === actionType.id) {
         setCredits((prevCredits) => prevCredits - 1);
       }
