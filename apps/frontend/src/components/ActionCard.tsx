@@ -46,13 +46,13 @@ export default function ActionCard(props: PropsWithRef<{ actionType: any }>) {
     }
   };
 
-  useEffect(() => {
-    const handleEvent = (eventType: string, action: Action) => {
-      if (eventType === 'actionExecuted' && action.type_id === actionType.id) {
-        setCredits((prevCredits) => prevCredits - 1);
-      }
-    };
+  const handleEvent = (eventType: string, action: Action) => {
+    if (eventType === 'actionExecuted' && action.type_id === actionType.id) {
+      setCredits((prevCredits) => prevCredits - 1);
+    }
+  };
 
+  useEffect(() => {
     eventManager.subscribe(handleEvent);
 
     return () => {
