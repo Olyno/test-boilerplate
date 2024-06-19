@@ -15,10 +15,14 @@ router.post('/', async (req, res) => {
     return res.status(400).send('Action type is required.');
   }
 
-  const newAction = await addAction(type);
-  eventEmitter.emit('action', { event: 'actionAdded', data: newAction });
+  try {
+    const newAction = await addAction(type);
+    eventEmitter.emit('action', { event: 'actionAdded', data: newAction });
 
-  res.status(200).send({ message: 'Action added successfully' });
+    return res.status(200).send({ message: 'Action added successfully' });
+  } catch (error) {
+    return res.status(403).send({ message: error.message });
+  }
 });
 
 export default router;

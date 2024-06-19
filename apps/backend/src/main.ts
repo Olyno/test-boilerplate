@@ -8,7 +8,13 @@ const port = env.PORT;
 
 setupDatabase();
 
-setInterval(processAction, 1000);
+setInterval(async () => {
+  try {
+    await processAction();
+  } catch (error) {
+    console.log('[ cron ] Unexpected error while processing "action":', error);
+  }
+}, 1000);
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
