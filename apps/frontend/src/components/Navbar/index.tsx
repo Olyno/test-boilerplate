@@ -1,39 +1,14 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import eventManager from '../eventManager';
-import { getActions } from '../services/actions';
-import { Action } from '../types';
-import ActionList from './ActionList';
-
-const NavbarContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #282c34;
-  color: white;
-`;
-
-const NotificationContainer = styled.div`
-  position: relative;
-  cursor: pointer;
-`;
-
-const NotificationBell = styled.div`
-  position: relative;
-  font-size: 24px;
-`;
-
-const NotificationCount = styled.span`
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
-`;
+import eventManager from '../../eventManager';
+import { getActions } from '../../services/actions';
+import { Action } from '../../types';
+import ActionList from '../ActionList';
+import {
+  NavbarContainer,
+  NotificationBell,
+  NotificationContainer,
+  NotificationCount,
+} from './styled';
 
 export default function Navbar() {
   const [eventCount, setEventCount] = useState(0);
