@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ActionCard from '../components/ActionCard';
+import Banner from '../components/Banner';
 import Navbar from '../components/Navbar';
 import { getActionTypes } from '../services/actionTypes';
+import { getBackendHealth } from '../services/health';
 
 const Container = styled.div`
   display: flex;
@@ -12,10 +14,14 @@ const Container = styled.div`
 `;
 
 export default function HomePage() {
+  const [isUp, setIsUp] = useState(false);
   const [actionTypes, setActionTypes] = useState([]);
 
   useEffect(() => {
     fetchActionTypes();
+    getBackendHealth()
+      .then(() => setIsUp(true))
+      .catch(() => setIsUp(false));
   }, []);
 
   const fetchActionTypes = async () => {
@@ -26,6 +32,8 @@ export default function HomePage() {
       console.error('Error fetching action types:', error);
     }
   };
+
+  if (!isUp) return <Banner type="error">Backend is down</Banner>;
 
   return (
     <React.Fragment>

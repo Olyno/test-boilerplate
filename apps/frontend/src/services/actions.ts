@@ -8,9 +8,7 @@ export async function getActions() {
   }
 
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/actions`
-    );
+    const response = await axios.get(`/actions`);
     cache.set('actions', response.data);
     return response.data;
   } catch (error) {
@@ -21,7 +19,7 @@ export async function getActions() {
 
 export async function addAction(type: string) {
   return axios
-    .post(`${import.meta.env.VITE_BACKEND_URL}/actions`, {
+    .post(`/actions`, {
       type,
     })
     .then(({ data }) => data);

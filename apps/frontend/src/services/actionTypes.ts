@@ -8,9 +8,7 @@ export async function getActionTypes() {
   }
 
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/action_types`
-    );
+    const response = await axios.get(`/action_types`);
 
     response.data.forEach((actionType: any) => {
       cache.set(actionType.id, actionType);
