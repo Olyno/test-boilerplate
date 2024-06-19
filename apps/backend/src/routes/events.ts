@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
   };
 
   eventEmitter.on('action', onAction);
+  eventEmitter.on('action_types', onAction);
 
   req.on('close', () => {
     eventEmitter.removeListener('action', onAction);
